@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5d+8=ehf#0c(!lo_m3(6toitolmzz2ev@@+@2g3%9u_dg!xsa0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://radiant-everglades-17211.herokuapp.com"]
 
 
 # Application definition
@@ -138,3 +138,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
