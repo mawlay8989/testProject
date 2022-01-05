@@ -1,0 +1,64 @@
+{% extends 'mainApp/layout.html' %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+
+<section class="hero d-flex justify-content-center align-items-center">
+	<div class="container d-flex flex-column justify-content-center align-items-center">
+		<h1 class="fw-bold">Application Todo</h1>
+		<p class="fs-5">Inscrivez-vous ou connectez-vous pour créer et consulter vos tâches</p>
+
+		<div>
+			<a href="{% url 'login' %}" class="btn btn-lg btn-primary fw-bold">Connexion</a>
+			<a href="{% url 'sign-up-view' %}" class="btn btn-lg btn-success fw-bold">Inscription</a>
+		</div>
+	</div>
+</section>
+
+{% else %}
+
+<section class="hero-less d-flex justify-content-center align-items-center">
+	<div class="container d-flex flex-column justify-content-center align-items-center">
+		<h1 class="fw-bold">Bienvenue {{ user.username|title }}</h1>
+		<p class="fs-5">Votre liste de tâches</p>
+	</div>
+</section>
+
+<section class="todos py-4">
+	<div class="container px-5">
+
+		{% if categories %}
+			{% for category in categories %}
+				<h6 class="fw-bold">{{ category.name }} - <a href="{% url 'category-remove-view' category.id %}">Supprimer Catégorie</a></h6>
+				{% if category.task_set %}
+					{% for task in category.task_set.all %}
+						{% if task.owner == user %}
+							<div class="task">
+								<p class="mb-2"><a href="{% url 'task-show-view' task.id %}">{{ task.title }}</a></p>
+							</div>
+						{% endif %}
+						
+					{% endfor %}
+						
+				{% else %}
+
+					<div class="text-center">
+						<h2>Pas encore de tâches</h2>
+						<a href="{% url 'task-add-view' %}" class="btn btn-primary">Ajouter une Tâche</a>
+						<a href="{% url 'category-add-view' %}" class="btn btn-primary">Ajouter une Catégorie</a>
+					</div>
+					
+				{% endif %}
+			{% endfor %}
+				<div class="text-center">
+					<a href="{% url 'task-add-view' %}" class="btn btn-primary">Ajouter une Tâche</a>
+					<a href="{% url 'category-add-view' %}" class="btn btn-primary">Ajouter une Catégorie</a>
+				</div>
+		{% endif %}
+	</div>
+</section>
+
+{% endif %}
+
+{% endblock %}

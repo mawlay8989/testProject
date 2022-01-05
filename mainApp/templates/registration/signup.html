@@ -1,0 +1,27 @@
+{% extends 'mainApp/layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<section class="hero-less d-flex justify-content-center align-items-center">
+	<div class="container d-flex flex-column justify-content-center align-items-center">
+		<h1 class="fw-bold">Inscription</h1>
+		<p class="fs-5">Inscrivez-vous ici</p>
+	</div>
+</section>
+
+<section class="login py-5">
+	<div class="container px-5">
+		<form method="post">
+      		{% csrf_token %}
+      
+        	{{ form|crispy }}
+        
+         	<input type="submit" value="S'inscrire" class="btn btn-success">
+             
+    	</form>
+	</div>
+</section>
+
+{% endblock %}

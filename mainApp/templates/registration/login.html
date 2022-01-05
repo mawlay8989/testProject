@@ -1,0 +1,27 @@
+{% extends 'mainApp/layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<section class="hero-less d-flex justify-content-center align-items-center">
+	<div class="container d-flex flex-column justify-content-center align-items-center">
+		<h1 class="fw-bold">Connexion</h1>
+		<p class="fs-5">Connectez-vous ici à votre compte</p>
+	</div>
+</section>
+
+<section class="login py-5">
+	<div class="container px-5">
+		<form method="post">
+      		{% csrf_token %}
+      
+        	{{ form|crispy }}
+        
+         	<input type="submit" value="Se connecter" class="btn btn-success">
+             
+    	</form>
+	</div>
+</section>
+
+{% endblock %}
